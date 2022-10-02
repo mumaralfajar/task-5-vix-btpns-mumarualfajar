@@ -1,4 +1,4 @@
-package config
+package database
 
 import (
 	"fmt"
@@ -6,6 +6,7 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"os"
+	"task-5-vix-btpns-mumaralfajar/models"
 )
 
 func SetupDatabaseConnection() *gorm.DB {
@@ -23,7 +24,7 @@ func SetupDatabaseConnection() *gorm.DB {
 	if err != nil {
 		panic("Failed to connect to database!")
 	}
-	//db.AutoMigrate()
+	db.AutoMigrate(&models.User{}, &models.Photo{})
 	return db
 }
 

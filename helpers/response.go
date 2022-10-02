@@ -1,4 +1,4 @@
-package helper
+package helpers
 
 import "strings"
 
@@ -8,6 +8,8 @@ type Response struct {
 	Error   interface{} `json:"error"`
 	Data    interface{} `json:"data"`
 }
+
+type EmptyObj struct{}
 
 func APIResponse(status bool, message string, data interface{}) Response {
 	res := Response{
