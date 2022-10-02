@@ -2,15 +2,25 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"net/http"
+	"gorm.io/gorm"
+	"task-5-vix-btpns-mumaralfajar/config"
+	"task-5-vix-btpns-mumaralfajar/controller"
+)
+
+var (
+	db             *gorm.DB                  = config.SetupDatabaseConnection()
+	authController controller.AuthController = controller.NewAuthController()
 )
 
 func main() {
+	defer config.CloseDatabaseConnection(db)
 	r := gin.Default()
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "hello world",
-		})
-	})
+
+	authRoutes := r.Group("api/auth")
+	{
+		authRoutes.POST("/login", authController.Login)
+		authRoutes.POST("/register", authController.Register)
+	}
+
 	r.Run()
 }
