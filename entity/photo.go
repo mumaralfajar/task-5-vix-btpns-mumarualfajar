@@ -6,5 +6,5 @@ type Photo struct {
 	Caption  string `gorm:"not null" json:"caption"`
 	PhotoUrl string `gorm:"not null" json:"photo_url"`
 	UserID   int64  `gorm:"not null" json:"user_id"`
-	User     User   `gorm:"foreignKey:UserID" json:"user"`
+	User     User   `gorm:"foreignKey:UserID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE" json:"user"`
 }
